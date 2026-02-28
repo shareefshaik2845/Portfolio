@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaik Shareef - Flutter Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4ADE80;
+            --secondary-color: #22C55E;
+            --dark-bg: #0F172A;
+            --card-bg: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --accent-gradient: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 5% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            animation: pulse 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--card-bg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(74, 222, 128, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .skills-list,
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(74, 222, 128, 0.2);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .skill-percentage {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            animation: fillBar 1.5s ease-out;
+        }
+
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+        }
+
+        /* Experience Card */
+        .experience-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 4px solid var(--dark-bg);
+        }
+
+        .experience-card:hover {
+            transform: translateX(10px);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .company-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .duration {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .job-title {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            border-top: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(74, 222, 128, 0.2);
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .tag {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(74, 222, 128, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(74, 222, 128, 0.1);
+            transform: scale(1.05);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .contact-details h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-details a:hover {
+            color: var(--primary-color);
+        }
+
+        .download-resume {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gradient);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .image-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: var(--card-bg);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(74, 222, 128, 0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">SS</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <img src="./assests/Shaik_Shareef.png" alt="Shaik Shareef" class="profile-image">
+                </div>
+            </div>
+            <div class="hero-content">
+                <h1>Shaik Shareef</h1>
+                <p class="subtitle">Flutter Developer</p>
+                <p>Flutter Developer with 1.3+ years of experience building scalable cross platform applications.
+                    Skilled in REST API integration, Provider-based state management, JWT authentication, pagination,
+                    lazy loading and performance optimization. Experienced in Clean Architecture and MVVM. Follow coding
+                    best practices, maintainable design principles, and collaborative development standards. Committed
+                    to delivering high-quality solutions aligned with business objectives and company goals.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        View Projects <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Experience Section -->
+    <section id="skills">
+        <div class="section-header">
+            <h2>Skills & Experience</h2>
+            <p>A comprehensive overview of my technical proficiency and professional journey</p>
+        </div>
+        <div class="skills-container">
+            <div class="skills-list">
+                <h3 style="margin-bottom: 2rem; font-size: 2rem;">Technical Skills</h3>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Languages & Frameworks</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Dart, Flutter SDK, Java</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">State Management</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Provider, setState, Riverpod, BLoC,
+                        GetX</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Architecture & Networking</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Clean Architecture, MVVM, RESTful APIs,
+                        JSON parsing, HTTP/Dio</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Backend & Storage</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Firebase, Shared Preferences, Secure
+                        Storage, SQLite, Hive</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Tools & Platforms</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Git/GitHub, VS Code, Android Studio,
+                        Postman, Swagger, Figma, JIRA</p>
+                </div>
+            </div>
+
+            <div class="experience-list">
+                <h3 style="margin-bottom: 2rem; font-size: 2rem;">Work Experience</h3>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-name">Cortracker IT Private Limited</div>
+                            <div class="job-title">Flutter Developer</div>
+                        </div>
+                        <div class="duration">Nov 2024 - Present</div>
+                    </div>
+                    <div class="job-description">
+                        <p
+                            style="color: var(--primary-color); font-weight: bold; margin-bottom: 0.5rem; margin-top: 0.5rem;">
+                            Project: CORtracker</p>
+                        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; font-size: 0.95rem;">
+                            <li>Developed cross-platform enterprise app using Flutter (Android, iOS, Web, Desktop) with
+                                single codebase.</li>
+                            <li>Converted UI/UX Figma designs into responsive, pixel-perfect UI screens.</li>
+                            <li>Implemented Clean Architecture with feature-based modular structure across 11+ business
+                                modules.</li>
+                            <li>Integrated secure REST APIs using a centralized ApiClient with base URLs, common
+                                headers, and token management, error management, and logging.</li>
+                            <li>Implemented role-based access control using 4-level permission model.</li>
+                            <li>Managed API loading, success, and error states using Provider for reactive UI updates.
+                            </li>
+                            <li>Implemented pagination and lazy loading for large datasets, improving screen load time
+                                by ~30–40%.</li>
+                            <li>Built interactive dashboards, KPI cards, and charts using fl_chart and reusable widgets.
+                            </li>
+                            <li>Optimized performance using efficient state management and minimized widget rebuilds.
+                            </li>
+                            <li>Implemented robust error handling, timeout logic, and network connectivity checks.</li>
+                            <li>Created centralized shared components folder, reducing duplicate code by ~25% and
+                                accelerating feature development by ~30%.</li>
+                        </ul>
+
+                        <p style="color: var(--primary-color); font-weight: bold; margin-bottom: 0.5rem;">Project: HRMS
+                        </p>
+                        <ul style="margin-left: 1.5rem; font-size: 0.95rem;">
+                            <li>Implemented MVVM Architecture for scalable and maintainable structure & clean
+                                separation.</li>
+                            <li>Integrated secure REST APIs from the backend team into flutter.</li>
+                            <li>Developed JWT-based role authentication with multi-level access control (Super Admin,
+                                Admin and Employee).</li>
+                            <li>Managed API loading, success, and error states using Provider for reactive UI updates.
+                            </li>
+                            <li>Implemented pagination and lazy loading to efficiently manage large employee datasets.
+                            </li>
+                            <li>Implemented comprehensive error handling for network failures, timeout logic, and
+                                network connectivity checks.</li>
+                            <li>Optimized performance using efficient state management and minimized widget rebuilds.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" style="background: rgba(30, 41, 59, 0.5);">
+        <div class="section-header">
+            <h2>Education & Certifications</h2>
+            <p>My academic background and professional certifications</p>
+        </div>
+        <div class="skills-container" style="gap: 4rem;">
+            <div class="skills-list">
+                <h3 style="margin-bottom: 2rem; font-size: 2rem;">Education</h3>
+
+                <div class="experience-card" style="margin-bottom: 1.5rem;">
+                    <div class="experience-header" style="flex-direction: column; gap: 0.5rem;">
+                        <div>
+                            <div class="company-name" style="font-size: 1.1rem;">Narasaraopeta Engineering College</div>
+                            <div class="job-title" style="font-size: 1rem; margin-bottom: 0.5rem;">B.Tech in Electronics
+                                & Communication Engineering</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span class="duration">June 2024</span>
+                            <span style="color: var(--text-secondary); font-weight: bold;">GPA: 8.2/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card" style="margin-bottom: 1.5rem;">
+                    <div class="experience-header" style="flex-direction: column; gap: 0.5rem;">
+                        <div>
+                            <div class="company-name" style="font-size: 1.1rem;">Sri Saraswathi Junior College</div>
+                            <div class="job-title" style="font-size: 1rem; margin-bottom: 0.5rem;">Intermediate (MPC)
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span class="duration">May 2020</span>
+                            <span style="color: var(--text-secondary); font-weight: bold;">GPA: 8.5/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header" style="flex-direction: column; gap: 0.5rem;">
+                        <div>
+                            <div class="company-name" style="font-size: 1.1rem;">Vikram High School</div>
+                            <div class="job-title" style="font-size: 1rem; margin-bottom: 0.5rem;">Secondary School
+                                Certificate (SSC)</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span class="duration">May 2020</span>
+                            <span style="color: var(--text-secondary); font-weight: bold;">GPA: 9.5/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-list">
+                <h3 style="margin-bottom: 2rem; font-size: 2rem;">Certifications</h3>
+
+                <div class="skill-item"
+                    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                    <div>
+                        <div class="skill-name" style="color: var(--text-primary);">Flutter & Dart - The Complete Guide
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Udemy</div>
+                    </div>
+                    <div class="duration">2024</div>
+                </div>
+
+                <div class="skill-item"
+                    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                    <div>
+                        <div class="skill-name" style="color: var(--text-primary);">App Development with Flutter &
+                            Firebase</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Coursera</div>
+                    </div>
+                    <div class="duration">2024</div>
+                </div>
+
+                <div class="skill-item"
+                    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                    <div>
+                        <div class="skill-name" style="color: var(--text-primary);">Figma UI/UX Design Essentials</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Udemy</div>
+                    </div>
+                    <div class="duration">2024</div>
+                </div>
+
+                <div class="skill-item"
+                    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                    <div>
+                        <div class="skill-name" style="color: var(--text-primary);">Git & Version Control Essentials
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">LinkedIn Learning</div>
+                    </div>
+                    <div class="duration">2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header">
+            <h2>Projects</h2>
+            <p>Showcasing my work in building scalable and innovative applications</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3 class="project-title">CorTracker ERP</h3>
+                <p class="project-description">
+                    Enterprise-grade ERP application built with Flutter supporting Android, iOS, Web, and Desktop.
+                    Features Clean Architecture, JWT authentication, role-based access control, and real-time data
+                    synchronization across 11+ business modules.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Dart</span>
+                    <span class="tag">REST API</span>
+                    <span class="tag">Clean Architecture</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">HRMS</h3>
+                <p class="project-description">
+                    Comprehensive Human Resource Management System utilizing MVVM Architecture for scalable and clean
+                    separation. Features JWT-based role authentication, efficient state management with Provider, and
+                    robust error handling with network connectivity checks.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">MVVM</span>
+                    <span class="tag">Provider</span>
+                    <span class="tag">REST API</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">Diabetic Food Analyzer</h3>
+                <p class="project-description">
+                    An intelligent health monitoring application that integrates with the Gemini API to scan, analyze,
+                    and evaluate food items, providing real-time recommendations on whether a diabetic patient can
+                    safely consume them based on nutritional analysis.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Gemini API</span>
+                    <span class="tag">Dart</span>
+                    <span class="tag">AI Integration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <h2>Get In Touch</h2>
+            <p>Have a project in mind or want to collaborate? I'm always open to new opportunities.</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <a href="mailto:shareefshaik2845@gmail.com">shareefshaik2845@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/918106384830">+91 81063 84830</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>LinkedIn</h4>
+                        <a href="https://linkedin.com/in/shaik-shareef-13a070248" target="_blank">View Profile</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>GitHub</h4>
+                        <a href="https://github.com/shareefshaik2845" target="_blank">@shareefshaik2845</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-resume">
+                <a href="./assests/Shaik_Shareef_Flutter_Resume.pdf" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/shareefshaik2845" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/shaik-shareef-13a070248" target="_blank"><i
+                    class="fab fa-linkedin"></i></a>
+            <a href="mailto:shareefshaik2845@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://wa.me/918106384830" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p>&copy; 2026 Shaik Shareef. All rights reserved.</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.skill-item, .experience-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add typing effect to hero title
+        const heroTitle = document.querySelector('.hero-content h1');
+        const titleText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < titleText.length) {
+                heroTitle.textContent += titleText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // Start typing effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+
+</html>
